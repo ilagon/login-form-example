@@ -1,21 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import Credentials from "./utils/credUtils";
 
 function LoginForm() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-  let cred; 
+  //let cred = new Credentials(); 
 
-  useEffect(() => {
-   cred = new Credentials();
-  });
+  const cred = useRef(new Credentials())
 
   const register = () => {
-    cred.registerCredentials(username, password);
+    cred.current.registerCredentials(username, password);
   };
 
   const login = () => {
-    cred.loginUser(username, password);
+    cred.current.loginUser(username, password);
   };
   return (
     <div className='form-container'>
@@ -41,12 +39,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-let obj1 = {
-  "userName": "username",
-  "userPass": "password"
-}
-
-let obj2 = {
-  "username":"password"
-}
